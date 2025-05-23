@@ -5,11 +5,11 @@ export interface IUser extends Document {
   username: string;
   email: string;
   password: string;
-  winStreak: number;
+  winCount: number;
+  loseCount: number;
   playHistory: Array<{
     date: Date;
     result: 'win' | 'lose';
-    score: number;
   }>;
   comparePassword(candidatePassword: string): Promise<boolean>;
 }
@@ -33,7 +33,11 @@ const userSchema = new Schema<IUser>({
     required: true,
     minlength: 6,
   },
-  winStreak: {
+  winCount: {
+    type: Number,
+    default: 0,
+  },
+  loseCount: {
     type: Number,
     default: 0,
   },
@@ -45,10 +49,6 @@ const userSchema = new Schema<IUser>({
     result: {
       type: String,
       enum: ['win', 'lose'],
-      required: true,
-    },
-    score: {
-      type: Number,
       required: true,
     },
   }],
