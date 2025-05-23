@@ -7,6 +7,7 @@ export interface IUser extends Document {
   password: string;
   winCount: number;
   loseCount: number;
+  winStreak: number;
   playHistory: Array<{
     date: Date;
     result: 'win' | 'lose';
@@ -38,6 +39,10 @@ const userSchema = new Schema<IUser>({
     default: 0,
   },
   loseCount: {
+    type: Number,
+    default: 0,
+  },
+  winStreak: {
     type: Number,
     default: 0,
   },
